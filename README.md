@@ -24,6 +24,6 @@ lvl1 <- grow_tree(data_df = mydata)
 lvl2 <- grow_tree(data_df = mydata, tree_grw = lvl1)
 lvl3 <- grow_tree(data_df = mydata, tree_grw = lvl2)
 
-cor(lvl1$PC_lst[[1]], lvl2$PC_lst[[1]])
-cor(lvl1$PC_lst[[1]], lvl2$PC_lst[[2]])
+cor(lvl1$PC_lst[[1]], lvl2$PC_lst[[1]]) # The correlation must be close to zero.
+cor(lvl1$PC_lst[[1]], lvl2$PC_lst[[2]]) # The correlation must be close to zero.
 ```
