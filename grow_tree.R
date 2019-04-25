@@ -36,5 +36,8 @@ grow_tree <- function(data_df, tree_grw = NULL){
   }
   
   PClist <- lapply(Xlist, function(x) prcomp(x)$x[,1])
-  return(list(PC_lst = PClist, X_lst = Xlist, level = level))
+  results <- list(PC_lst = PClist, X_lst = Xlist, level = level)
+  class(results) <- 'Orthogonal tree'
+  return(results)
 }
+
