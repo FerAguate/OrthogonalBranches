@@ -25,7 +25,7 @@ grow_tree(data_df, ...)
   
   level             branch level.
   
-  PCvar             percentage of variance explained by the first PC.
+  PCvar             proportion of variance explained by the first PC.
   
 </nowrap></pre>
 
