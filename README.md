@@ -16,6 +16,19 @@ grow_tree(data_df, ...)
   
 </nowrap></pre>
 
+### Value
+
+<pre><nowrap>
+  PC_lst            list of length equal to the number of groups. Contains the first PC for each group.
+  
+  X_lst             Residual data by group.
+  
+  level             branch level.
+  
+  PCvar             percentage of variance explained by the first PC.
+  
+</nowrap></pre>
+
 ### Examples
 ```R
 mydata <- iris[,-5]
