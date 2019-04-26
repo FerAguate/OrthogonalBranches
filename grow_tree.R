@@ -21,7 +21,8 @@ grow_tree <- function(data_df, tree_grw = NULL){
   plot(as.phylo(data_hc), type = 'fan', 
        tip.color = create_color_vector(tree_cut, colors = rainbow(level, v = .7)), 
        edge.color = c("#4682B4", "#B47846"))
-  
+  legend('topright', legend = paste0('group ', 1:length(unique(tree_cut))), 
+         col = rainbow(level, v = .7), pch = 19, 2)
   newX <- X_lst
   for(w in seq_along(newX)){
     newX[[w]] <-  as.data.frame(sapply(newX[[w]], function(x) residuals(lm(x ~ PC_lst[[w]])))) 
