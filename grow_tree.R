@@ -3,18 +3,17 @@ grow_tree <- function(data_df, tree_grw = NULL){
   eval(parse(text = RCurl::getURL('https://raw.githubusercontent.com/FerAguate/SmallRFunctions/master/fersource.R', ssl.verifypeer = FALSE)))
   fersource('create_color_vector')
   require(ape)
-  
   if(!is.null(tree_grw)){
-    PC_lst = tree_grw$PC_lst
-    X_lst = tree_grw$X_lst
-    level = tree_grw$level + 1
+    PC_lst <- tree_grw$PC_lst
+    X_lst <- tree_grw$X_lst
+    level <- tree_grw$level + 1
   }else{
     level = 1
   }
   
   data_hc <- hclust(dist(t(data_df)))
   if(level == 1) {
-    PC_lst <- list(prcomp(data_df)$x[,1])
+    PC_lst <- list(as.data.frame(as.matrix(data_df) %*% svd(crossprod(as.matrix(data_df)))$v)[,1])
     X_lst <- list(data_df)
   }
   
@@ -35,8 +34,11 @@ grow_tree <- function(data_df, tree_grw = NULL){
     Xlist[[i]] <- newX[[newX_pos]][, lst_names[[newX_pos]], drop = F]
   }
   
-  PClist <- lapply(Xlist, function(x) prcomp(x)$x[,1])
-  PCvar <- lapply(Xlist, function(x) (prcomp(x)$sdev[1]^2) / sum(prcomp(x)$sdev^2))
+  PClist <- lapply(Xlist, function(x) as.data.frame(as.matrix(x) %*% svd(crossprod(as.matrix(x)))$v)[,1])
+  PCvar <- lapply(Xlist, function(x){
+  d  <- svd(crossprod(as.matrix(x)))$d
+  (d[1]) / sum(d)
+  })
   
   if(!is.null(tree_grw)) {
     tree <- paste0(tree_grw$tree_cut, '_', tree_cut)
