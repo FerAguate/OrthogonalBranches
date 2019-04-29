@@ -25,7 +25,12 @@ grow_tree <- function(data_df, tree_grw = NULL){
          col = rainbow(level, v = .7), pch = 19, 2)
   newX <- X_lst
   for(w in seq_along(newX)){
-    newX[[w]] <-  as.data.frame(sapply(newX[[w]], function(x) residuals(lm(x ~ PC_lst[[w]])))) 
+    if(level > 2){
+      if(!all(names(which(sapply(strsplit(tree_grw$tree_cut, "_"), function(x) x[length(x)]) == w)) %in% names(which(tree_cut == w))))
+        newX[[w]] <-  as.data.frame(sapply(newX[[w]], function(x) residuals(lm(x ~ PC_lst[[w]]))))
+    }else{
+      newX[[w]] <-  as.data.frame(sapply(newX[[w]], function(x) residuals(lm(x ~ PC_lst[[w]]))))
+    }
   }
   
   Xlist <- list()
